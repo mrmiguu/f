@@ -1,281 +1,287 @@
 package f
 
-func MapBool(boolsA []bool, f func(bool) bool) []bool {
-	boolsB := []bool{}
-	for _, b := range boolsA {
-		boolsB = append(boolsB, f(b))
+import "reflect"
+
+func MapBool(sliceA []bool, f func(bool) bool) []bool {
+	sliceB := []bool{}
+	for _, b := range sliceA {
+		sliceB = append(sliceB, f(b))
 	}
-	return boolsB
+	return sliceB
 }
 
-func EachBool(bools []int, f func(int)) {
-	for _, b := range bools {
+func EachBool(slice []int, f func(int)) {
+	for _, b := range slice {
 		f(b)
 	}
 }
 
-func MapString(stringsA []string, f func(string) string) []string {
-	stringsB := []string{}
-	for _, b := range stringsA {
-		stringsB = append(stringsB, f(b))
+func MapString(sliceA []string, f func(string) string) []string {
+	sliceB := []string{}
+	for _, b := range sliceA {
+		sliceB = append(sliceB, f(b))
 	}
-	return stringsB
+	return sliceB
 }
 
-func EachString(strings []int, f func(int)) {
-	for _, b := range strings {
+func EachString(slice []int, f func(int)) {
+	for _, b := range slice {
 		f(b)
 	}
 }
 
-func MapInt(intsA []int, f func(int) int) []int {
-	intsB := []int{}
-	for _, i := range intsA {
-		intsB = append(intsB, f(i))
+func MapInt(sliceA []int, f func(int) int) []int {
+	sliceB := []int{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return intsB
+	return sliceB
 }
 
-func EachInt(ints []int, f func(int)) {
-	for _, i := range ints {
+func EachInt(slice []int, f func(int)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapInt8(int8sA []int8, f func(int8) int8) []int8 {
-	int8sB := []int8{}
-	for _, i := range int8sA {
-		int8sB = append(int8sB, f(i))
+func MapInt8(sliceA []int8, f func(int8) int8) []int8 {
+	sliceB := []int8{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return int8sB
+	return sliceB
 }
 
-func EachInt8(int8s []int8, f func(int8)) {
-	for _, i := range int8s {
+func EachInt8(slice []int8, f func(int8)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapInt16(int16sA []int16, f func(int16) int16) []int16 {
-	int16sB := []int16{}
-	for _, i := range int16sA {
-		int16sB = append(int16sB, f(i))
+func MapInt16(sliceA []int16, f func(int16) int16) []int16 {
+	sliceB := []int16{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return int16sB
+	return sliceB
 }
 
-func EachInt16(int16s []int16, f func(int16)) {
-	for _, i := range int16s {
+func EachInt16(slice []int16, f func(int16)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapInt32(int32sA []int32, f func(int32) int32) []int32 {
-	int32sB := []int32{}
-	for _, i := range int32sA {
-		int32sB = append(int32sB, f(i))
+func MapInt32(sliceA []int32, f func(int32) int32) []int32 {
+	sliceB := []int32{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return int32sB
+	return sliceB
 }
 
-func EachInt32(int32s []int32, f func(int32)) {
-	for _, i := range int32s {
+func EachInt32(slice []int32, f func(int32)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapInt64(int64sA []int64, f func(int64) int64) []int64 {
-	int64sB := []int64{}
-	for _, i := range int64sA {
-		int64sB = append(int64sB, f(i))
+func MapInt64(sliceA []int64, f func(int64) int64) []int64 {
+	sliceB := []int64{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return int64sB
+	return sliceB
 }
 
-func EachInt64(int64s []int64, f func(int64)) {
-	for _, i := range int64s {
+func EachInt64(slice []int64, f func(int64)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapUInt(uintsA []uint, f func(uint) uint) []uint {
-	uintsB := []uint{}
-	for _, i := range uintsA {
-		uintsB = append(uintsB, f(i))
+func MapUInt(sliceA []uint, f func(uint) uint) []uint {
+	sliceB := []uint{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return uintsB
+	return sliceB
 }
 
-func EachUInt(uints []uint, f func(uint)) {
-	for _, i := range uints {
+func EachUInt(slice []uint, f func(uint)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapUInt8(uint8sA []uint8, f func(uint8) uint8) []uint8 {
-	uint8sB := []uint8{}
-	for _, i := range uint8sA {
-		uint8sB = append(uint8sB, f(i))
+func MapUInt8(sliceA []uint8, f func(uint8) uint8) []uint8 {
+	sliceB := []uint8{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return uint8sB
+	return sliceB
 }
 
-func EachUInt8(uint8s []uint8, f func(uint8)) {
-	for _, i := range uint8s {
+func EachUInt8(slice []uint8, f func(uint8)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapUInt16(uint16sA []uint16, f func(uint16) uint16) []uint16 {
-	uint16sB := []uint16{}
-	for _, i := range uint16sA {
-		uint16sB = append(uint16sB, f(i))
+func MapUInt16(sliceA []uint16, f func(uint16) uint16) []uint16 {
+	sliceB := []uint16{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return uint16sB
+	return sliceB
 }
 
-func EachUInt16(uint16s []uint16, f func(uint16)) {
-	for _, i := range uint16s {
+func EachUInt16(slice []uint16, f func(uint16)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapUInt32(uint32sA []uint32, f func(uint32) uint32) []uint32 {
-	uint32sB := []uint32{}
-	for _, i := range uint32sA {
-		uint32sB = append(uint32sB, f(i))
+func MapUInt32(sliceA []uint32, f func(uint32) uint32) []uint32 {
+	sliceB := []uint32{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return uint32sB
+	return sliceB
 }
 
-func EachUInt32(uint32s []uint32, f func(uint32)) {
-	for _, i := range uint32s {
+func EachUInt32(slice []uint32, f func(uint32)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapUInt64(uint64sA []uint64, f func(uint64) uint64) []uint64 {
-	uint64sB := []uint64{}
-	for _, i := range uint64sA {
-		uint64sB = append(uint64sB, f(i))
+func MapUInt64(sliceA []uint64, f func(uint64) uint64) []uint64 {
+	sliceB := []uint64{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return uint64sB
+	return sliceB
 }
 
-func EachUInt64(uint64s []uint64, f func(uint64)) {
-	for _, i := range uint64s {
+func EachUInt64(slice []uint64, f func(uint64)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapUIntPtr(uintptrsA []uintptr, f func(uintptr) uintptr) []uintptr {
-	uintptrsB := []uintptr{}
-	for _, i := range uintptrsA {
-		uintptrsB = append(uintptrsB, f(i))
+func MapUIntPtr(sliceA []uintptr, f func(uintptr) uintptr) []uintptr {
+	sliceB := []uintptr{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return uintptrsB
+	return sliceB
 }
 
-func EachUIntPtr(uintptrs []uintptr, f func(uintptr)) {
-	for _, i := range uintptrs {
+func EachUIntPtr(slice []uintptr, f func(uintptr)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapByte(bytesA []byte, f func(byte) byte) []byte {
-	bytesB := []byte{}
-	for _, i := range bytesA {
-		bytesB = append(bytesB, f(i))
+func MapByte(sliceA []byte, f func(byte) byte) []byte {
+	sliceB := []byte{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return bytesB
+	return sliceB
 }
 
-func EachByte(bytes []byte, f func(byte)) {
-	for _, i := range bytes {
+func EachByte(slice []byte, f func(byte)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapRune(runesA []rune, f func(rune) rune) []rune {
-	runesB := []rune{}
-	for _, i := range runesA {
-		runesB = append(runesB, f(i))
+func MapRune(sliceA []rune, f func(rune) rune) []rune {
+	sliceB := []rune{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return runesB
+	return sliceB
 }
 
-func EachRune(runes []rune, f func(rune)) {
-	for _, i := range runes {
+func EachRune(slice []rune, f func(rune)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapFloat32(float32sA []float32, f func(float32) float32) []float32 {
-	float32sB := []float32{}
-	for _, i := range float32sA {
-		float32sB = append(float32sB, f(i))
+func MapFloat32(sliceA []float32, f func(float32) float32) []float32 {
+	sliceB := []float32{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return float32sB
+	return sliceB
 }
 
-func EachFloat32(float32s []float32, f func(float32)) {
-	for _, i := range float32s {
+func EachFloat32(slice []float32, f func(float32)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapFloat64(float64sA []float64, f func(float64) float64) []float64 {
-	float64sB := []float64{}
-	for _, i := range float64sA {
-		float64sB = append(float64sB, f(i))
+func MapFloat64(sliceA []float64, f func(float64) float64) []float64 {
+	sliceB := []float64{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return float64sB
+	return sliceB
 }
 
-func EachFloat64(float64s []float64, f func(float64)) {
-	for _, i := range float64s {
+func EachFloat64(slice []float64, f func(float64)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapComplex64(complex64sA []complex64, f func(complex64) complex64) []complex64 {
-	complex64sB := []complex64{}
-	for _, i := range complex64sA {
-		complex64sB = append(complex64sB, f(i))
+func MapComplex64(sliceA []complex64, f func(complex64) complex64) []complex64 {
+	sliceB := []complex64{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return complex64sB
+	return sliceB
 }
 
-func EachComplex64(complex64s []complex64, f func(complex64)) {
-	for _, i := range complex64s {
+func EachComplex64(slice []complex64, f func(complex64)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func MapComplex128(complex128sA []complex128, f func(complex128) complex128) []complex128 {
-	complex128sB := []complex128{}
-	for _, i := range complex128sA {
-		complex128sB = append(complex128sB, f(i))
+func MapComplex128(sliceA []complex128, f func(complex128) complex128) []complex128 {
+	sliceB := []complex128{}
+	for _, i := range sliceA {
+		sliceB = append(sliceB, f(i))
 	}
-	return complex128sB
+	return sliceB
 }
 
-func EachComplex128(complex128s []complex128, f func(complex128)) {
-	for _, i := range complex128s {
+func EachComplex128(slice []complex128, f func(complex128)) {
+	for _, i := range slice {
 		f(i)
 	}
 }
 
-func Map(interfacesA []interface{}, f func(interface{}) interface{}) []interface{} {
-	interfacesB := make([]interface{}, 0)
-	for _, i := range interfacesA {
-		interfacesB = append(interfacesB, f(i))
+func Map(slice interface{}, fn interface{}) interface{} {
+	f := reflect.ValueOf(fn)
+	a := reflect.ValueOf(slice)
+	b := reflect.MakeSlice(reflect.SliceOf(reflect.TypeOf(fn).Out(0)), 0, a.Cap())
+	for i := 0; i < a.Len(); i++ {
+		b = reflect.Append(b, f.Call([]reflect.Value{a.Index(i)})[0])
 	}
-	return interfacesB
+	return b.Interface()
 }
 
-func Each(interfaces []interface{}, f func(interface{})) {
-	for _, i := range interfaces {
-		f(i)
+func Each(slice interface{}, fn interface{}) {
+	f := reflect.ValueOf(fn)
+	s := reflect.ValueOf(slice)
+	for i := 0; i < s.Len(); i++ {
+		f.Call([]reflect.Value{s.Index(i)})
 	}
 }
