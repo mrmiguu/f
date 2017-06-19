@@ -1,4 +1,4 @@
-package fn
+package f
 
 import "reflect"
 
