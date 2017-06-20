@@ -1,11 +1,15 @@
 # f
 f is a functional slice library
 
-```go
-import "github.com/mrmiguu/f"
+```
+go get github.com/mrmiguu/f
 ```
 
+![alt text](demo-1.png)
+
 ```go
+import "github.com/mrmiguu/f"
+
 lenThree := func(ii []int) bool {
     return len(ii) == 3
 }
@@ -44,7 +48,7 @@ f.Each(jj, printInts)
 fmt.Println()
 ```
 
-![alt text](demo-1.png)
+![alt text](demo-2.png)
 
 ```go
 plusOne := func(i int) int {
@@ -65,7 +69,7 @@ f.Each(kk, printInts)
 fmt.Println()
 ```
 
-![alt text](demo-2.png)
+![alt text](demo-3.png)
 
 ```go
 even := func(i int) bool {
@@ -82,9 +86,9 @@ ll := f.Map(kk, onlyEvens)
 f.Each(ll, printInts)
 ```
 
-![alt text](demo-3.png)
-
 test.go
+
+![alt text](demo.png)
 
 ```go
 import "github.com/mrmiguu/f"
@@ -156,5 +160,3 @@ func main() {
     f.Each(ll, printInts)
 }
 ```
-
-![alt text](demo.png)
