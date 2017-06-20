@@ -31,6 +31,8 @@ jj := f.Find(ii, lenThree) // generic find
 Example: int slice `map` and generic `map`
 
 ```go
+...
+
 plusOne := func(i int) int {return i + 1}
 
 incrAll := func(ints []int) []int {return f.MapInt(ints, plusOne)} // int slice map
@@ -44,6 +46,8 @@ kk := f.Map(jj, incrAll) // generic map
 Example: int slice `find`
 
 ```go
+...
+
 even := func(i int) bool {return i%2 == 0}
 
 onlyEvens := func(ii []int) []int {return f.FindInt(ii, even)} // int slice find
