@@ -16,13 +16,15 @@ printInts := func(ints []int) {fmt.Print("[ ")
                                f.EachInt(ints, printInt) // int slice each
                                fmt.Print("] ")}
 
-f.Each([][]int{{1, 2, 3},
-               {4, 5, 6},
-               {7, 8   }}, printInts) // generic each
+ii := [][]int{{1, 2, 3},
+              {4, 5, 6},
+              {7, 8   }}
 
-...
+f.Each(ii, printInts) // generic each
 
 jj := f.Find(ii, lenThree) // generic find
+
+...
 ```
 ![alt text](demo-1.png)
 
@@ -33,9 +35,9 @@ plusOne := func(i int) int {return i + 1}
 
 incrAll := func(ints []int) []int {return f.MapInt(ints, plusOne)} // int slice map
 
-...
-
 kk := f.Map(jj, incrAll) // generic map
+
+...
 ```
 ![alt text](demo-2.png)
 
@@ -45,6 +47,10 @@ Example: int slice `find`
 even := func(i int) bool {return i%2 == 0}
 
 onlyEvens := func(ii []int) []int {return f.FindInt(ii, even)} // int slice find
+
+ll := f.Map(kk, onlyEvens)
+
+...
 ```
 ![alt text](demo-3.png)
 
