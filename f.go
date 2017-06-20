@@ -458,6 +458,19 @@ func EachComplex128(slice []complex128, fn func(complex128)) {
 	}
 }
 
+func Find(slice interface{}, fn interface{}) interface{} {
+	fun := reflect.ValueOf(fn)
+	a := reflect.ValueOf(slice)
+	b := reflect.MakeSlice(reflect.TypeOf(slice), 0, a.Cap())
+	for i := 0; i < a.Len(); i++ {
+		val := a.Index(i)
+		if fun.Call([]reflect.Value{val})[0].Bool() {
+			b = reflect.Append(b, val)
+		}
+	}
+	return b.Interface()
+}
+
 func Map(slice interface{}, fn interface{}) interface{} {
 	fun := reflect.ValueOf(fn)
 	a := reflect.ValueOf(slice)
