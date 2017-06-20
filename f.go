@@ -1,490 +1,831 @@
 package f
 
-import "reflect"
+import (
+	"reflect"
+)
 
-func FindBool(sliceA []bool, fn func(bool) bool) []bool {
-	sliceB := []bool{}
-	for _, b := range sliceA {
-		if fn(b) {
-			sliceB = append(sliceB, b)
-		}
+func FindBool(slice []bool, fn func(bool) bool) []bool {
+	sliceCh := make(chan []bool, 1)
+	sliceCh <- []bool{}
+	for _, Bool := range slice {
+		Bool := Bool
+		go (func() {
+			if fn(Bool) {
+				sliceCh <- append(<-sliceCh, Bool)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapBool(sliceA []bool, fn func(bool) bool) []bool {
-	sliceB := []bool{}
-	for _, b := range sliceA {
-		sliceB = append(sliceB, fn(b))
+func MapBool(slice []bool, fn func(bool) bool) []bool {
+	sliceCh := make(chan []bool, 1)
+	sliceCh <- []bool{}
+	for _, Bool := range slice {
+		Bool := Bool
+		go (func() {
+			v := fn(Bool)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func EachBool(slice []int, fn func(int)) {
-	for _, i := range slice {
-		fn(i)
+func EachBool(slice []bool, fn func(bool)) {
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Bool := range slice {
+		Bool := Bool
+		go (func() {
+			fn(Bool)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindString(sliceA []string, fn func(string) bool) []string {
-	sliceB := []string{}
-	for _, s := range sliceA {
-		if fn(s) {
-			sliceB = append(sliceB, s)
-		}
+func FindString(slice []string, fn func(string) bool) []string {
+	sliceCh := make(chan []string, 1)
+	sliceCh <- []string{}
+	for _, String := range slice {
+		String := String
+		go (func() {
+			if fn(String) {
+				sliceCh <- append(<-sliceCh, String)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapString(sliceA []string, fn func(string) string) []string {
-	sliceB := []string{}
-	for _, s := range sliceA {
-		sliceB = append(sliceB, fn(s))
+func MapString(slice []string, fn func(string) string) []string {
+	sliceCh := make(chan []string, 1)
+	sliceCh <- []string{}
+	for _, String := range slice {
+		String := String
+		go (func() {
+			v := fn(String)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func EachString(slice []int, fn func(int)) {
-	for _, i := range slice {
-		fn(i)
+func EachString(slice []string, fn func(string)) {
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, String := range slice {
+		String := String
+		go (func() {
+			fn(String)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindInt(sliceA []int, fn func(int) bool) []int {
-	sliceB := []int{}
-	for _, i := range sliceA {
-		if fn(i) {
-			sliceB = append(sliceB, i)
-		}
+func FindInt(slice []int, fn func(int) bool) []int {
+	sliceCh := make(chan []int, 1)
+	sliceCh <- []int{}
+	for _, Int := range slice {
+		Int := Int
+		go (func() {
+			if fn(Int) {
+				sliceCh <- append(<-sliceCh, Int)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapInt(sliceA []int, fn func(int) int) []int {
-	sliceB := []int{}
-	for _, i := range sliceA {
-		sliceB = append(sliceB, fn(i))
+func MapInt(slice []int, fn func(int) int) []int {
+	sliceCh := make(chan []int, 1)
+	sliceCh <- []int{}
+	for _, Int := range slice {
+		Int := Int
+		go (func() {
+			v := fn(Int)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachInt(slice []int, fn func(int)) {
-	for _, i := range slice {
-		fn(i)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Int := range slice {
+		Int := Int
+		go (func() {
+			fn(Int)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindInt8(sliceA []int8, fn func(int8) bool) []int8 {
-	sliceB := []int8{}
-	for _, i := range sliceA {
-		if fn(i) {
-			sliceB = append(sliceB, i)
-		}
+func FindInt8(slice []int8, fn func(int8) bool) []int8 {
+	sliceCh := make(chan []int8, 1)
+	sliceCh <- []int8{}
+	for _, Int8 := range slice {
+		Int8 := Int8
+		go (func() {
+			if fn(Int8) {
+				sliceCh <- append(<-sliceCh, Int8)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapInt8(sliceA []int8, fn func(int8) int8) []int8 {
-	sliceB := []int8{}
-	for _, i := range sliceA {
-		sliceB = append(sliceB, fn(i))
+func MapInt8(slice []int8, fn func(int8) int8) []int8 {
+	sliceCh := make(chan []int8, 1)
+	sliceCh <- []int8{}
+	for _, Int8 := range slice {
+		Int8 := Int8
+		go (func() {
+			v := fn(Int8)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachInt8(slice []int8, fn func(int8)) {
-	for _, i := range slice {
-		fn(i)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Int8 := range slice {
+		Int8 := Int8
+		go (func() {
+			fn(Int8)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindInt16(sliceA []int16, fn func(int16) bool) []int16 {
-	sliceB := []int16{}
-	for _, i := range sliceA {
-		if fn(i) {
-			sliceB = append(sliceB, i)
-		}
+func FindInt16(slice []int16, fn func(int16) bool) []int16 {
+	sliceCh := make(chan []int16, 1)
+	sliceCh <- []int16{}
+	for _, Int16 := range slice {
+		Int16 := Int16
+		go (func() {
+			if fn(Int16) {
+				sliceCh <- append(<-sliceCh, Int16)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapInt16(sliceA []int16, fn func(int16) int16) []int16 {
-	sliceB := []int16{}
-	for _, i := range sliceA {
-		sliceB = append(sliceB, fn(i))
+func MapInt16(slice []int16, fn func(int16) int16) []int16 {
+	sliceCh := make(chan []int16, 1)
+	sliceCh <- []int16{}
+	for _, Int16 := range slice {
+		Int16 := Int16
+		go (func() {
+			v := fn(Int16)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachInt16(slice []int16, fn func(int16)) {
-	for _, i := range slice {
-		fn(i)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Int16 := range slice {
+		Int16 := Int16
+		go (func() {
+			fn(Int16)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindInt32(sliceA []int32, fn func(int32) bool) []int32 {
-	sliceB := []int32{}
-	for _, i := range sliceA {
-		if fn(i) {
-			sliceB = append(sliceB, i)
-		}
+func FindInt32(slice []int32, fn func(int32) bool) []int32 {
+	sliceCh := make(chan []int32, 1)
+	sliceCh <- []int32{}
+	for _, Int32 := range slice {
+		Int32 := Int32
+		go (func() {
+			if fn(Int32) {
+				sliceCh <- append(<-sliceCh, Int32)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapInt32(sliceA []int32, fn func(int32) int32) []int32 {
-	sliceB := []int32{}
-	for _, i := range sliceA {
-		sliceB = append(sliceB, fn(i))
+func MapInt32(slice []int32, fn func(int32) int32) []int32 {
+	sliceCh := make(chan []int32, 1)
+	sliceCh <- []int32{}
+	for _, Int32 := range slice {
+		Int32 := Int32
+		go (func() {
+			v := fn(Int32)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachInt32(slice []int32, fn func(int32)) {
-	for _, i := range slice {
-		fn(i)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Int32 := range slice {
+		Int32 := Int32
+		go (func() {
+			fn(Int32)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindInt64(sliceA []int64, fn func(int64) bool) []int64 {
-	sliceB := []int64{}
-	for _, i := range sliceA {
-		if fn(i) {
-			sliceB = append(sliceB, i)
-		}
+func FindInt64(slice []int64, fn func(int64) bool) []int64 {
+	sliceCh := make(chan []int64, 1)
+	sliceCh <- []int64{}
+	for _, Int64 := range slice {
+		Int64 := Int64
+		go (func() {
+			if fn(Int64) {
+				sliceCh <- append(<-sliceCh, Int64)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapInt64(sliceA []int64, fn func(int64) int64) []int64 {
-	sliceB := []int64{}
-	for _, i := range sliceA {
-		sliceB = append(sliceB, fn(i))
+func MapInt64(slice []int64, fn func(int64) int64) []int64 {
+	sliceCh := make(chan []int64, 1)
+	sliceCh <- []int64{}
+	for _, Int64 := range slice {
+		Int64 := Int64
+		go (func() {
+			v := fn(Int64)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachInt64(slice []int64, fn func(int64)) {
-	for _, i := range slice {
-		fn(i)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Int64 := range slice {
+		Int64 := Int64
+		go (func() {
+			fn(Int64)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindUInt(sliceA []uint, fn func(uint) bool) []uint {
-	sliceB := []uint{}
-	for _, u := range sliceA {
-		if fn(u) {
-			sliceB = append(sliceB, u)
-		}
+func FindUInt(slice []uint, fn func(uint) bool) []uint {
+	sliceCh := make(chan []uint, 1)
+	sliceCh <- []uint{}
+	for _, Uint := range slice {
+		Uint := Uint
+		go (func() {
+			if fn(Uint) {
+				sliceCh <- append(<-sliceCh, Uint)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapUInt(sliceA []uint, fn func(uint) uint) []uint {
-	sliceB := []uint{}
-	for _, u := range sliceA {
-		sliceB = append(sliceB, fn(u))
+func MapUInt(slice []uint, fn func(uint) uint) []uint {
+	sliceCh := make(chan []uint, 1)
+	sliceCh <- []uint{}
+	for _, Uint := range slice {
+		Uint := Uint
+		go (func() {
+			v := fn(Uint)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachUInt(slice []uint, fn func(uint)) {
-	for _, u := range slice {
-		fn(u)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, UInt := range slice {
+		UInt := UInt
+		go (func() {
+			fn(UInt)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindUInt8(sliceA []uint8, fn func(uint8) bool) []uint8 {
-	sliceB := []uint8{}
-	for _, u := range sliceA {
-		if fn(u) {
-			sliceB = append(sliceB, u)
-		}
+func FindUInt8(slice []uint8, fn func(uint8) bool) []uint8 {
+	sliceCh := make(chan []uint8, 1)
+	sliceCh <- []uint8{}
+	for _, Uint8 := range slice {
+		Uint8 := Uint8
+		go (func() {
+			if fn(Uint8) {
+				sliceCh <- append(<-sliceCh, Uint8)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapUInt8(sliceA []uint8, fn func(uint8) uint8) []uint8 {
-	sliceB := []uint8{}
-	for _, u := range sliceA {
-		sliceB = append(sliceB, fn(u))
+func MapUInt8(slice []uint8, fn func(uint8) uint8) []uint8 {
+	sliceCh := make(chan []uint8, 1)
+	sliceCh <- []uint8{}
+	for _, Uint8 := range slice {
+		Uint8 := Uint8
+		go (func() {
+			v := fn(Uint8)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachUInt8(slice []uint8, fn func(uint8)) {
-	for _, u := range slice {
-		fn(u)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, UInt8 := range slice {
+		UInt8 := UInt8
+		go (func() {
+			fn(UInt8)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindUInt16(sliceA []uint16, fn func(uint16) bool) []uint16 {
-	sliceB := []uint16{}
-	for _, u := range sliceA {
-		if fn(u) {
-			sliceB = append(sliceB, u)
-		}
+func FindUInt16(slice []uint16, fn func(uint16) bool) []uint16 {
+	sliceCh := make(chan []uint16, 1)
+	sliceCh <- []uint16{}
+	for _, Uint16 := range slice {
+		Uint16 := Uint16
+		go (func() {
+			if fn(Uint16) {
+				sliceCh <- append(<-sliceCh, Uint16)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapUInt16(sliceA []uint16, fn func(uint16) uint16) []uint16 {
-	sliceB := []uint16{}
-	for _, u := range sliceA {
-		sliceB = append(sliceB, fn(u))
+func MapUInt16(slice []uint16, fn func(uint16) uint16) []uint16 {
+	sliceCh := make(chan []uint16, 1)
+	sliceCh <- []uint16{}
+	for _, Uint16 := range slice {
+		Uint16 := Uint16
+		go (func() {
+			v := fn(Uint16)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachUInt16(slice []uint16, fn func(uint16)) {
-	for _, u := range slice {
-		fn(u)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, UInt16 := range slice {
+		UInt16 := UInt16
+		go (func() {
+			fn(UInt16)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindUInt32(sliceA []uint32, fn func(uint32) bool) []uint32 {
-	sliceB := []uint32{}
-	for _, u := range sliceA {
-		if fn(u) {
-			sliceB = append(sliceB, u)
-		}
+func FindUInt32(slice []uint32, fn func(uint32) bool) []uint32 {
+	sliceCh := make(chan []uint32, 1)
+	sliceCh <- []uint32{}
+	for _, Uint32 := range slice {
+		Uint32 := Uint32
+		go (func() {
+			if fn(Uint32) {
+				sliceCh <- append(<-sliceCh, Uint32)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapUInt32(sliceA []uint32, fn func(uint32) uint32) []uint32 {
-	sliceB := []uint32{}
-	for _, u := range sliceA {
-		sliceB = append(sliceB, fn(u))
+func MapUInt32(slice []uint32, fn func(uint32) uint32) []uint32 {
+	sliceCh := make(chan []uint32, 1)
+	sliceCh <- []uint32{}
+	for _, Uint32 := range slice {
+		Uint32 := Uint32
+		go (func() {
+			v := fn(Uint32)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachUInt32(slice []uint32, fn func(uint32)) {
-	for _, u := range slice {
-		fn(u)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, UInt32 := range slice {
+		UInt32 := UInt32
+		go (func() {
+			fn(UInt32)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindUInt64(sliceA []uint64, fn func(uint64) bool) []uint64 {
-	sliceB := []uint64{}
-	for _, u := range sliceA {
-		if fn(u) {
-			sliceB = append(sliceB, u)
-		}
+func FindUInt64(slice []uint64, fn func(uint64) bool) []uint64 {
+	sliceCh := make(chan []uint64, 1)
+	sliceCh <- []uint64{}
+	for _, Uint64 := range slice {
+		Uint64 := Uint64
+		go (func() {
+			if fn(Uint64) {
+				sliceCh <- append(<-sliceCh, Uint64)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapUInt64(sliceA []uint64, fn func(uint64) uint64) []uint64 {
-	sliceB := []uint64{}
-	for _, u := range sliceA {
-		sliceB = append(sliceB, fn(u))
+func MapUInt64(slice []uint64, fn func(uint64) uint64) []uint64 {
+	sliceCh := make(chan []uint64, 1)
+	sliceCh <- []uint64{}
+	for _, Uint64 := range slice {
+		Uint64 := Uint64
+		go (func() {
+			v := fn(Uint64)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachUInt64(slice []uint64, fn func(uint64)) {
-	for _, u := range slice {
-		fn(u)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, UInt64 := range slice {
+		UInt64 := UInt64
+		go (func() {
+			fn(UInt64)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindUIntPtr(sliceA []uintptr, fn func(uintptr) bool) []uintptr {
-	sliceB := []uintptr{}
-	for _, u := range sliceA {
-		if fn(u) {
-			sliceB = append(sliceB, u)
-		}
+func FindUIntPtr(slice []uintptr, fn func(uintptr) bool) []uintptr {
+	sliceCh := make(chan []uintptr, 1)
+	sliceCh <- []uintptr{}
+	for _, Uintptr := range slice {
+		Uintptr := Uintptr
+		go (func() {
+			if fn(Uintptr) {
+				sliceCh <- append(<-sliceCh, Uintptr)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapUIntPtr(sliceA []uintptr, fn func(uintptr) uintptr) []uintptr {
-	sliceB := []uintptr{}
-	for _, u := range sliceA {
-		sliceB = append(sliceB, fn(u))
+func MapUIntPtr(slice []uintptr, fn func(uintptr) uintptr) []uintptr {
+	sliceCh := make(chan []uintptr, 1)
+	sliceCh <- []uintptr{}
+	for _, Uintptr := range slice {
+		Uintptr := Uintptr
+		go (func() {
+			v := fn(Uintptr)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachUIntPtr(slice []uintptr, fn func(uintptr)) {
-	for _, u := range slice {
-		fn(u)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, UIntPtr := range slice {
+		UIntPtr := UIntPtr
+		go (func() {
+			fn(UIntPtr)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindByte(sliceA []byte, fn func(byte) bool) []byte {
-	sliceB := []byte{}
-	for _, b := range sliceA {
-		if fn(b) {
-			sliceB = append(sliceB, b)
-		}
+func FindByte(slice []byte, fn func(byte) bool) []byte {
+	sliceCh := make(chan []byte, 1)
+	sliceCh <- []byte{}
+	for _, Byte := range slice {
+		Byte := Byte
+		go (func() {
+			if fn(Byte) {
+				sliceCh <- append(<-sliceCh, Byte)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapByte(sliceA []byte, fn func(byte) byte) []byte {
-	sliceB := []byte{}
-	for _, b := range sliceA {
-		sliceB = append(sliceB, fn(b))
+func MapByte(slice []byte, fn func(byte) byte) []byte {
+	sliceCh := make(chan []byte, 1)
+	sliceCh <- []byte{}
+	for _, Byte := range slice {
+		Byte := Byte
+		go (func() {
+			v := fn(Byte)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachByte(slice []byte, fn func(byte)) {
-	for _, b := range slice {
-		fn(b)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Byte := range slice {
+		Byte := Byte
+		go (func() {
+			fn(Byte)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindRune(sliceA []rune, fn func(rune) bool) []rune {
-	sliceB := []rune{}
-	for _, r := range sliceA {
-		if fn(r) {
-			sliceB = append(sliceB, r)
-		}
+func FindRune(slice []rune, fn func(rune) bool) []rune {
+	sliceCh := make(chan []rune, 1)
+	sliceCh <- []rune{}
+	for _, Rune := range slice {
+		Rune := Rune
+		go (func() {
+			if fn(Rune) {
+				sliceCh <- append(<-sliceCh, Rune)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapRune(sliceA []rune, fn func(rune) rune) []rune {
-	sliceB := []rune{}
-	for _, r := range sliceA {
-		sliceB = append(sliceB, fn(r))
+func MapRune(slice []rune, fn func(rune) rune) []rune {
+	sliceCh := make(chan []rune, 1)
+	sliceCh <- []rune{}
+	for _, Rune := range slice {
+		Rune := Rune
+		go (func() {
+			v := fn(Rune)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachRune(slice []rune, fn func(rune)) {
-	for _, r := range slice {
-		fn(r)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Rune := range slice {
+		Rune := Rune
+		go (func() {
+			fn(Rune)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindFloat32(sliceA []float32, fn func(float32) bool) []float32 {
-	sliceB := []float32{}
-	for _, f := range sliceA {
-		if fn(f) {
-			sliceB = append(sliceB, f)
-		}
+func FindFloat32(slice []float32, fn func(float32) bool) []float32 {
+	sliceCh := make(chan []float32, 1)
+	sliceCh <- []float32{}
+	for _, Float32 := range slice {
+		Float32 := Float32
+		go (func() {
+			if fn(Float32) {
+				sliceCh <- append(<-sliceCh, Float32)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapFloat32(sliceA []float32, fn func(float32) float32) []float32 {
-	sliceB := []float32{}
-	for _, f := range sliceA {
-		sliceB = append(sliceB, fn(f))
+func MapFloat32(slice []float32, fn func(float32) float32) []float32 {
+	sliceCh := make(chan []float32, 1)
+	sliceCh <- []float32{}
+	for _, Float32 := range slice {
+		Float32 := Float32
+		go (func() {
+			v := fn(Float32)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachFloat32(slice []float32, fn func(float32)) {
-	for _, f := range slice {
-		fn(f)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Float32 := range slice {
+		Float32 := Float32
+		go (func() {
+			fn(Float32)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindFloat64(sliceA []float64, fn func(float64) bool) []float64 {
-	sliceB := []float64{}
-	for _, f := range sliceA {
-		if fn(f) {
-			sliceB = append(sliceB, f)
-		}
+func FindFloat64(slice []float64, fn func(float64) bool) []float64 {
+	sliceCh := make(chan []float64, 1)
+	sliceCh <- []float64{}
+	for _, Float64 := range slice {
+		Float64 := Float64
+		go (func() {
+			if fn(Float64) {
+				sliceCh <- append(<-sliceCh, Float64)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapFloat64(sliceA []float64, fn func(float64) float64) []float64 {
-	sliceB := []float64{}
-	for _, f := range sliceA {
-		sliceB = append(sliceB, fn(f))
+func MapFloat64(slice []float64, fn func(float64) float64) []float64 {
+	sliceCh := make(chan []float64, 1)
+	sliceCh <- []float64{}
+	for _, Float64 := range slice {
+		Float64 := Float64
+		go (func() {
+			v := fn(Float64)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachFloat64(slice []float64, fn func(float64)) {
-	for _, f := range slice {
-		fn(f)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Float64 := range slice {
+		Float64 := Float64
+		go (func() {
+			fn(Float64)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindComplex64(sliceA []complex64, fn func(complex64) bool) []complex64 {
-	sliceB := []complex64{}
-	for _, c := range sliceA {
-		if fn(c) {
-			sliceB = append(sliceB, c)
-		}
+func FindComplex64(slice []complex64, fn func(complex64) bool) []complex64 {
+	sliceCh := make(chan []complex64, 1)
+	sliceCh <- []complex64{}
+	for _, Complex64 := range slice {
+		Complex64 := Complex64
+		go (func() {
+			if fn(Complex64) {
+				sliceCh <- append(<-sliceCh, Complex64)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapComplex64(sliceA []complex64, fn func(complex64) complex64) []complex64 {
-	sliceB := []complex64{}
-	for _, c := range sliceA {
-		sliceB = append(sliceB, fn(c))
+func MapComplex64(slice []complex64, fn func(complex64) complex64) []complex64 {
+	sliceCh := make(chan []complex64, 1)
+	sliceCh <- []complex64{}
+	for _, Complex64 := range slice {
+		Complex64 := Complex64
+		go (func() {
+			v := fn(Complex64)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachComplex64(slice []complex64, fn func(complex64)) {
-	for _, c := range slice {
-		fn(c)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Complex64 := range slice {
+		Complex64 := Complex64
+		go (func() {
+			fn(Complex64)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
-func FindComplex128(sliceA []complex128, fn func(complex128) bool) []complex128 {
-	sliceB := []complex128{}
-	for _, c := range sliceA {
-		if fn(c) {
-			sliceB = append(sliceB, c)
-		}
+func FindComplex128(slice []complex128, fn func(complex128) bool) []complex128 {
+	sliceCh := make(chan []complex128, 1)
+	sliceCh <- []complex128{}
+	for _, Complex128 := range slice {
+		Complex128 := Complex128
+		go (func() {
+			if fn(Complex128) {
+				sliceCh <- append(<-sliceCh, Complex128)
+			}
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
-func MapComplex128(sliceA []complex128, fn func(complex128) complex128) []complex128 {
-	sliceB := []complex128{}
-	for _, c := range sliceA {
-		sliceB = append(sliceB, fn(c))
+func MapComplex128(slice []complex128, fn func(complex128) complex128) []complex128 {
+	sliceCh := make(chan []complex128, 1)
+	sliceCh <- []complex128{}
+	for _, Complex128 := range slice {
+		Complex128 := Complex128
+		go (func() {
+			v := fn(Complex128)
+			sliceCh <- append(<-sliceCh, v)
+		})()
 	}
-	return sliceB
+	return <-sliceCh
 }
 
 func EachComplex128(slice []complex128, fn func(complex128)) {
-	for _, c := range slice {
-		fn(c)
+	ch := make(chan bool, 1)
+	ch <- true
+	for _, Complex128 := range slice {
+		Complex128 := Complex128
+		go (func() {
+			fn(Complex128)
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
 
 func Find(slice interface{}, fn interface{}) interface{} {
-	fun := reflect.ValueOf(fn)
+	f := reflect.ValueOf(fn)
 	a := reflect.ValueOf(slice)
-	b := reflect.MakeSlice(reflect.TypeOf(slice), 0, a.Cap())
+	bCh := make(chan reflect.Value, 1)
+	bCh <- reflect.MakeSlice(reflect.TypeOf(slice), 0, 0)
 	for i := 0; i < a.Len(); i++ {
-		val := a.Index(i)
-		if fun.Call([]reflect.Value{val})[0].Bool() {
-			b = reflect.Append(b, val)
-		}
+		v := a.Index(i)
+		go (func() {
+			if f.Call([]reflect.Value{v})[0].Bool() {
+				bCh <- reflect.Append(<-bCh, v)
+			}
+		})()
 	}
-	return b.Interface()
+	return (<-bCh).Interface()
 }
 
 func Map(slice interface{}, fn interface{}) interface{} {
-	fun := reflect.ValueOf(fn)
+	f := reflect.ValueOf(fn)
 	a := reflect.ValueOf(slice)
-	b := reflect.MakeSlice(reflect.SliceOf(reflect.TypeOf(fn).Out(0)), 0, a.Cap())
+	bCh := make(chan reflect.Value, 1)
+	bCh <- reflect.MakeSlice(reflect.SliceOf(reflect.TypeOf(fn).Out(0)), 0, 0)
 	for i := 0; i < a.Len(); i++ {
-		b = reflect.Append(b, fun.Call([]reflect.Value{a.Index(i)})[0])
+		i := i
+		go (func() {
+			v := f.Call([]reflect.Value{a.Index(i)})[0]
+			bCh <- reflect.Append(<-bCh, v)
+		})()
 	}
-	return b.Interface()
+	return (<-bCh).Interface()
 }
 
 func Each(slice interface{}, fn interface{}) {
-	fun := reflect.ValueOf(fn)
+	f := reflect.ValueOf(fn)
 	s := reflect.ValueOf(slice)
+	ch := make(chan bool, 1)
+	ch <- true
 	for i := 0; i < s.Len(); i++ {
-		fun.Call([]reflect.Value{s.Index(i)})
+		i := i
+		go (func() {
+			f.Call([]reflect.Value{s.Index(i)})
+			<-ch
+			ch <- true
+		})()
 	}
+	<-ch
 }
