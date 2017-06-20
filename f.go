@@ -2,830 +2,1051 @@ package f
 
 import (
 	"reflect"
+	"sync"
 )
 
 func FindBool(slice []bool, fn func(bool) bool) []bool {
-	sliceCh := make(chan []bool, 1)
-	sliceCh <- []bool{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []bool{}
 	for _, Bool := range slice {
 		Bool := Bool
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Bool) {
-				sliceCh <- append(<-sliceCh, Bool)
+				mux.Lock()
+				buf = append(buf, Bool)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapBool(slice []bool, fn func(bool) bool) []bool {
-	sliceCh := make(chan []bool, 1)
-	sliceCh <- []bool{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []bool{}
 	for _, Bool := range slice {
 		Bool := Bool
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Bool)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachBool(slice []bool, fn func(bool)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Bool := range slice {
 		Bool := Bool
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Bool)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindString(slice []string, fn func(string) bool) []string {
-	sliceCh := make(chan []string, 1)
-	sliceCh <- []string{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []string{}
 	for _, String := range slice {
 		String := String
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(String) {
-				sliceCh <- append(<-sliceCh, String)
+				mux.Lock()
+				buf = append(buf, String)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapString(slice []string, fn func(string) string) []string {
-	sliceCh := make(chan []string, 1)
-	sliceCh <- []string{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []string{}
 	for _, String := range slice {
 		String := String
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(String)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachString(slice []string, fn func(string)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, String := range slice {
 		String := String
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(String)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindInt(slice []int, fn func(int) bool) []int {
-	sliceCh := make(chan []int, 1)
-	sliceCh <- []int{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int{}
 	for _, Int := range slice {
 		Int := Int
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Int) {
-				sliceCh <- append(<-sliceCh, Int)
+				mux.Lock()
+				buf = append(buf, Int)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapInt(slice []int, fn func(int) int) []int {
-	sliceCh := make(chan []int, 1)
-	sliceCh <- []int{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int{}
 	for _, Int := range slice {
 		Int := Int
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Int)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachInt(slice []int, fn func(int)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Int := range slice {
 		Int := Int
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Int)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindInt8(slice []int8, fn func(int8) bool) []int8 {
-	sliceCh := make(chan []int8, 1)
-	sliceCh <- []int8{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int8{}
 	for _, Int8 := range slice {
 		Int8 := Int8
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Int8) {
-				sliceCh <- append(<-sliceCh, Int8)
+				mux.Lock()
+				buf = append(buf, Int8)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapInt8(slice []int8, fn func(int8) int8) []int8 {
-	sliceCh := make(chan []int8, 1)
-	sliceCh <- []int8{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int8{}
 	for _, Int8 := range slice {
 		Int8 := Int8
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Int8)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachInt8(slice []int8, fn func(int8)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Int8 := range slice {
 		Int8 := Int8
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Int8)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindInt16(slice []int16, fn func(int16) bool) []int16 {
-	sliceCh := make(chan []int16, 1)
-	sliceCh <- []int16{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int16{}
 	for _, Int16 := range slice {
 		Int16 := Int16
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Int16) {
-				sliceCh <- append(<-sliceCh, Int16)
+				mux.Lock()
+				buf = append(buf, Int16)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapInt16(slice []int16, fn func(int16) int16) []int16 {
-	sliceCh := make(chan []int16, 1)
-	sliceCh <- []int16{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int16{}
 	for _, Int16 := range slice {
 		Int16 := Int16
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Int16)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachInt16(slice []int16, fn func(int16)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Int16 := range slice {
 		Int16 := Int16
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Int16)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindInt32(slice []int32, fn func(int32) bool) []int32 {
-	sliceCh := make(chan []int32, 1)
-	sliceCh <- []int32{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int32{}
 	for _, Int32 := range slice {
 		Int32 := Int32
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Int32) {
-				sliceCh <- append(<-sliceCh, Int32)
+				mux.Lock()
+				buf = append(buf, Int32)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapInt32(slice []int32, fn func(int32) int32) []int32 {
-	sliceCh := make(chan []int32, 1)
-	sliceCh <- []int32{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int32{}
 	for _, Int32 := range slice {
 		Int32 := Int32
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Int32)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachInt32(slice []int32, fn func(int32)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Int32 := range slice {
 		Int32 := Int32
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Int32)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindInt64(slice []int64, fn func(int64) bool) []int64 {
-	sliceCh := make(chan []int64, 1)
-	sliceCh <- []int64{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int64{}
 	for _, Int64 := range slice {
 		Int64 := Int64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Int64) {
-				sliceCh <- append(<-sliceCh, Int64)
+				mux.Lock()
+				buf = append(buf, Int64)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapInt64(slice []int64, fn func(int64) int64) []int64 {
-	sliceCh := make(chan []int64, 1)
-	sliceCh <- []int64{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []int64{}
 	for _, Int64 := range slice {
 		Int64 := Int64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Int64)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachInt64(slice []int64, fn func(int64)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Int64 := range slice {
 		Int64 := Int64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Int64)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindUInt(slice []uint, fn func(uint) bool) []uint {
-	sliceCh := make(chan []uint, 1)
-	sliceCh <- []uint{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint{}
 	for _, Uint := range slice {
 		Uint := Uint
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Uint) {
-				sliceCh <- append(<-sliceCh, Uint)
+				mux.Lock()
+				buf = append(buf, Uint)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapUInt(slice []uint, fn func(uint) uint) []uint {
-	sliceCh := make(chan []uint, 1)
-	sliceCh <- []uint{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint{}
 	for _, Uint := range slice {
 		Uint := Uint
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Uint)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachUInt(slice []uint, fn func(uint)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, UInt := range slice {
 		UInt := UInt
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(UInt)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindUInt8(slice []uint8, fn func(uint8) bool) []uint8 {
-	sliceCh := make(chan []uint8, 1)
-	sliceCh <- []uint8{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint8{}
 	for _, Uint8 := range slice {
 		Uint8 := Uint8
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Uint8) {
-				sliceCh <- append(<-sliceCh, Uint8)
+				mux.Lock()
+				buf = append(buf, Uint8)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapUInt8(slice []uint8, fn func(uint8) uint8) []uint8 {
-	sliceCh := make(chan []uint8, 1)
-	sliceCh <- []uint8{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint8{}
 	for _, Uint8 := range slice {
 		Uint8 := Uint8
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Uint8)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachUInt8(slice []uint8, fn func(uint8)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, UInt8 := range slice {
 		UInt8 := UInt8
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(UInt8)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindUInt16(slice []uint16, fn func(uint16) bool) []uint16 {
-	sliceCh := make(chan []uint16, 1)
-	sliceCh <- []uint16{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint16{}
 	for _, Uint16 := range slice {
 		Uint16 := Uint16
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Uint16) {
-				sliceCh <- append(<-sliceCh, Uint16)
+				mux.Lock()
+				buf = append(buf, Uint16)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapUInt16(slice []uint16, fn func(uint16) uint16) []uint16 {
-	sliceCh := make(chan []uint16, 1)
-	sliceCh <- []uint16{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint16{}
 	for _, Uint16 := range slice {
 		Uint16 := Uint16
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Uint16)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachUInt16(slice []uint16, fn func(uint16)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, UInt16 := range slice {
 		UInt16 := UInt16
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(UInt16)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindUInt32(slice []uint32, fn func(uint32) bool) []uint32 {
-	sliceCh := make(chan []uint32, 1)
-	sliceCh <- []uint32{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint32{}
 	for _, Uint32 := range slice {
 		Uint32 := Uint32
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Uint32) {
-				sliceCh <- append(<-sliceCh, Uint32)
+				mux.Lock()
+				buf = append(buf, Uint32)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapUInt32(slice []uint32, fn func(uint32) uint32) []uint32 {
-	sliceCh := make(chan []uint32, 1)
-	sliceCh <- []uint32{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint32{}
 	for _, Uint32 := range slice {
 		Uint32 := Uint32
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Uint32)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachUInt32(slice []uint32, fn func(uint32)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, UInt32 := range slice {
 		UInt32 := UInt32
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(UInt32)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindUInt64(slice []uint64, fn func(uint64) bool) []uint64 {
-	sliceCh := make(chan []uint64, 1)
-	sliceCh <- []uint64{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint64{}
 	for _, Uint64 := range slice {
 		Uint64 := Uint64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Uint64) {
-				sliceCh <- append(<-sliceCh, Uint64)
+				mux.Lock()
+				buf = append(buf, Uint64)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapUInt64(slice []uint64, fn func(uint64) uint64) []uint64 {
-	sliceCh := make(chan []uint64, 1)
-	sliceCh <- []uint64{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uint64{}
 	for _, Uint64 := range slice {
 		Uint64 := Uint64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Uint64)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachUInt64(slice []uint64, fn func(uint64)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, UInt64 := range slice {
 		UInt64 := UInt64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(UInt64)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindUIntPtr(slice []uintptr, fn func(uintptr) bool) []uintptr {
-	sliceCh := make(chan []uintptr, 1)
-	sliceCh <- []uintptr{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uintptr{}
 	for _, Uintptr := range slice {
 		Uintptr := Uintptr
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Uintptr) {
-				sliceCh <- append(<-sliceCh, Uintptr)
+				mux.Lock()
+				buf = append(buf, Uintptr)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapUIntPtr(slice []uintptr, fn func(uintptr) uintptr) []uintptr {
-	sliceCh := make(chan []uintptr, 1)
-	sliceCh <- []uintptr{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []uintptr{}
 	for _, Uintptr := range slice {
 		Uintptr := Uintptr
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Uintptr)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachUIntPtr(slice []uintptr, fn func(uintptr)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, UIntPtr := range slice {
 		UIntPtr := UIntPtr
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(UIntPtr)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindByte(slice []byte, fn func(byte) bool) []byte {
-	sliceCh := make(chan []byte, 1)
-	sliceCh <- []byte{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []byte{}
 	for _, Byte := range slice {
 		Byte := Byte
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Byte) {
-				sliceCh <- append(<-sliceCh, Byte)
+				mux.Lock()
+				buf = append(buf, Byte)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapByte(slice []byte, fn func(byte) byte) []byte {
-	sliceCh := make(chan []byte, 1)
-	sliceCh <- []byte{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []byte{}
 	for _, Byte := range slice {
 		Byte := Byte
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Byte)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachByte(slice []byte, fn func(byte)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Byte := range slice {
 		Byte := Byte
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Byte)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindRune(slice []rune, fn func(rune) bool) []rune {
-	sliceCh := make(chan []rune, 1)
-	sliceCh <- []rune{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []rune{}
 	for _, Rune := range slice {
 		Rune := Rune
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Rune) {
-				sliceCh <- append(<-sliceCh, Rune)
+				mux.Lock()
+				buf = append(buf, Rune)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapRune(slice []rune, fn func(rune) rune) []rune {
-	sliceCh := make(chan []rune, 1)
-	sliceCh <- []rune{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []rune{}
 	for _, Rune := range slice {
 		Rune := Rune
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Rune)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachRune(slice []rune, fn func(rune)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Rune := range slice {
 		Rune := Rune
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Rune)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindFloat32(slice []float32, fn func(float32) bool) []float32 {
-	sliceCh := make(chan []float32, 1)
-	sliceCh <- []float32{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []float32{}
 	for _, Float32 := range slice {
 		Float32 := Float32
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Float32) {
-				sliceCh <- append(<-sliceCh, Float32)
+				mux.Lock()
+				buf = append(buf, Float32)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapFloat32(slice []float32, fn func(float32) float32) []float32 {
-	sliceCh := make(chan []float32, 1)
-	sliceCh <- []float32{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []float32{}
 	for _, Float32 := range slice {
 		Float32 := Float32
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Float32)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachFloat32(slice []float32, fn func(float32)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Float32 := range slice {
 		Float32 := Float32
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Float32)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindFloat64(slice []float64, fn func(float64) bool) []float64 {
-	sliceCh := make(chan []float64, 1)
-	sliceCh <- []float64{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []float64{}
 	for _, Float64 := range slice {
 		Float64 := Float64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Float64) {
-				sliceCh <- append(<-sliceCh, Float64)
+				mux.Lock()
+				buf = append(buf, Float64)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapFloat64(slice []float64, fn func(float64) float64) []float64 {
-	sliceCh := make(chan []float64, 1)
-	sliceCh <- []float64{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []float64{}
 	for _, Float64 := range slice {
 		Float64 := Float64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Float64)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachFloat64(slice []float64, fn func(float64)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Float64 := range slice {
 		Float64 := Float64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Float64)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindComplex64(slice []complex64, fn func(complex64) bool) []complex64 {
-	sliceCh := make(chan []complex64, 1)
-	sliceCh <- []complex64{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []complex64{}
 	for _, Complex64 := range slice {
 		Complex64 := Complex64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Complex64) {
-				sliceCh <- append(<-sliceCh, Complex64)
+				mux.Lock()
+				buf = append(buf, Complex64)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapComplex64(slice []complex64, fn func(complex64) complex64) []complex64 {
-	sliceCh := make(chan []complex64, 1)
-	sliceCh <- []complex64{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []complex64{}
 	for _, Complex64 := range slice {
 		Complex64 := Complex64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Complex64)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachComplex64(slice []complex64, fn func(complex64)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Complex64 := range slice {
 		Complex64 := Complex64
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Complex64)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func FindComplex128(slice []complex128, fn func(complex128) bool) []complex128 {
-	sliceCh := make(chan []complex128, 1)
-	sliceCh <- []complex128{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []complex128{}
 	for _, Complex128 := range slice {
 		Complex128 := Complex128
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if fn(Complex128) {
-				sliceCh <- append(<-sliceCh, Complex128)
+				mux.Lock()
+				buf = append(buf, Complex128)
+				mux.Unlock()
 			}
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func MapComplex128(slice []complex128, fn func(complex128) complex128) []complex128 {
-	sliceCh := make(chan []complex128, 1)
-	sliceCh <- []complex128{}
+	var mux sync.Mutex
+	var wg sync.WaitGroup
+	buf := []complex128{}
 	for _, Complex128 := range slice {
 		Complex128 := Complex128
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := fn(Complex128)
-			sliceCh <- append(<-sliceCh, v)
+			mux.Lock()
+			buf = append(buf, v)
+			mux.Unlock()
 		})()
 	}
-	return <-sliceCh
+	wg.Wait()
+	return buf
 }
 
 func EachComplex128(slice []complex128, fn func(complex128)) {
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for _, Complex128 := range slice {
 		Complex128 := Complex128
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			fn(Complex128)
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
 
 func Find(slice interface{}, fn interface{}) interface{} {
 	f := reflect.ValueOf(fn)
 	a := reflect.ValueOf(slice)
-	bCh := make(chan reflect.Value, 1)
-	bCh <- reflect.MakeSlice(reflect.TypeOf(slice), 0, 0)
+	b := reflect.MakeSlice(reflect.TypeOf(slice), 0, 0)
+	var mux sync.Mutex
+	var wg sync.WaitGroup
 	for i := 0; i < a.Len(); i++ {
 		v := a.Index(i)
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			if f.Call([]reflect.Value{v})[0].Bool() {
-				bCh <- reflect.Append(<-bCh, v)
+				mux.Lock()
+				b = reflect.Append(b, v)
+				mux.Unlock()
 			}
 		})()
 	}
-	return (<-bCh).Interface()
+	wg.Wait()
+	return b.Interface()
 }
 
 func Map(slice interface{}, fn interface{}) interface{} {
 	f := reflect.ValueOf(fn)
 	a := reflect.ValueOf(slice)
-	bCh := make(chan reflect.Value, 1)
-	bCh <- reflect.MakeSlice(reflect.SliceOf(reflect.TypeOf(fn).Out(0)), 0, 0)
+	b := reflect.MakeSlice(reflect.SliceOf(reflect.TypeOf(fn).Out(0)), 0, 0)
+	var mux sync.Mutex
+	var wg sync.WaitGroup
 	for i := 0; i < a.Len(); i++ {
 		i := i
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			v := f.Call([]reflect.Value{a.Index(i)})[0]
-			bCh <- reflect.Append(<-bCh, v)
+			mux.Lock()
+			b = reflect.Append(b, v)
+			mux.Unlock()
 		})()
 	}
-	return (<-bCh).Interface()
+	wg.Wait()
+	return b.Interface()
 }
 
 func Each(slice interface{}, fn interface{}) {
 	f := reflect.ValueOf(fn)
 	s := reflect.ValueOf(slice)
-	ch := make(chan bool, 1)
-	ch <- true
+	var wg sync.WaitGroup
 	for i := 0; i < s.Len(); i++ {
 		i := i
+		wg.Add(1)
 		go (func() {
+			defer wg.Done()
 			f.Call([]reflect.Value{s.Index(i)})
-			<-ch
-			ch <- true
 		})()
 	}
-	<-ch
+	wg.Wait()
 }
