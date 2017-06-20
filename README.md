@@ -53,8 +53,6 @@ even := func(i int) bool {return i%2 == 0}
 onlyEvens := func(ii []int) []int {return f.FindInt(ii, even)} // int slice find
 
 ll := f.Map(kk, onlyEvens)
-
-...
 ```
 ![alt text](demo-3.png)
 
