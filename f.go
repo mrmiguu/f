@@ -1208,9 +1208,8 @@ func Is(slice interface{}) bool {
 }
 
 func From(slice interface{}, v interface{}) interface{} {
-	a := reflect.ValueOf(slice)
-	if a.Len() > 0 {
-		return a.Index(0).Interface()
+	if Is(slice) {
+		return reflect.ValueOf(slice).Index(0).Interface()
 	}
 	return reflect.ValueOf(v).Interface()
 }
