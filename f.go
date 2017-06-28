@@ -5,6 +5,17 @@ import (
 	"sync"
 )
 
+func IsBool(slice []bool) bool {
+	return len(slice) > 0
+}
+
+func FromBool(slice []bool, b bool) bool {
+	if IsBool(slice) {
+		return slice[0]
+	}
+	return b
+}
+
 func FindBool(slice []bool, fn func(bool) bool) []bool {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -55,6 +66,17 @@ func EachBool(slice []bool, fn func(bool)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func IsString(slice []string) bool {
+	return len(slice) > 0
+}
+
+func FromString(slice []string, s string) string {
+	if IsString(slice) {
+		return slice[0]
+	}
+	return s
 }
 
 func FindString(slice []string, fn func(string) bool) []string {
@@ -109,6 +131,17 @@ func EachString(slice []string, fn func(string)) {
 	wg.Wait()
 }
 
+func IsInt(slice []int) bool {
+	return len(slice) > 0
+}
+
+func FromInt(slice []int, i int) int {
+	if IsInt(slice) {
+		return slice[0]
+	}
+	return i
+}
+
 func FindInt(slice []int, fn func(int) bool) []int {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -159,6 +192,17 @@ func EachInt(slice []int, fn func(int)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func IsInt8(slice []int8) bool {
+	return len(slice) > 0
+}
+
+func FromInt8(slice []int8, i int8) int8 {
+	if IsInt8(slice) {
+		return slice[0]
+	}
+	return i
 }
 
 func FindInt8(slice []int8, fn func(int8) bool) []int8 {
@@ -213,6 +257,17 @@ func EachInt8(slice []int8, fn func(int8)) {
 	wg.Wait()
 }
 
+func IsInt16(slice []int16) bool {
+	return len(slice) > 0
+}
+
+func FromInt16(slice []int16, i int16) int16 {
+	if IsInt16(slice) {
+		return slice[0]
+	}
+	return i
+}
+
 func FindInt16(slice []int16, fn func(int16) bool) []int16 {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -263,6 +318,17 @@ func EachInt16(slice []int16, fn func(int16)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func IsInt32(slice []int32) bool {
+	return len(slice) > 0
+}
+
+func FromInt32(slice []int32, i int32) int32 {
+	if IsInt32(slice) {
+		return slice[0]
+	}
+	return i
 }
 
 func FindInt32(slice []int32, fn func(int32) bool) []int32 {
@@ -317,6 +383,17 @@ func EachInt32(slice []int32, fn func(int32)) {
 	wg.Wait()
 }
 
+func IsInt64(slice []int64) bool {
+	return len(slice) > 0
+}
+
+func FromInt64(slice []int64, i int64) int64 {
+	if IsInt64(slice) {
+		return slice[0]
+	}
+	return i
+}
+
 func FindInt64(slice []int64, fn func(int64) bool) []int64 {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -367,6 +444,17 @@ func EachInt64(slice []int64, fn func(int64)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func IsUInt(slice []uint) bool {
+	return len(slice) > 0
+}
+
+func FromUInt(slice []uint, u uint) uint {
+	if IsUInt(slice) {
+		return slice[0]
+	}
+	return u
 }
 
 func FindUInt(slice []uint, fn func(uint) bool) []uint {
@@ -421,6 +509,17 @@ func EachUInt(slice []uint, fn func(uint)) {
 	wg.Wait()
 }
 
+func IsUInt8(slice []uint8) bool {
+	return len(slice) > 0
+}
+
+func FromUInt8(slice []uint8, u uint8) uint8 {
+	if IsUInt8(slice) {
+		return slice[0]
+	}
+	return u
+}
+
 func FindUInt8(slice []uint8, fn func(uint8) bool) []uint8 {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -471,6 +570,17 @@ func EachUInt8(slice []uint8, fn func(uint8)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func IsUInt16(slice []uint16) bool {
+	return len(slice) > 0
+}
+
+func FromUInt16(slice []uint16, u uint16) uint16 {
+	if IsUInt16(slice) {
+		return slice[0]
+	}
+	return u
 }
 
 func FindUInt16(slice []uint16, fn func(uint16) bool) []uint16 {
@@ -525,6 +635,17 @@ func EachUInt16(slice []uint16, fn func(uint16)) {
 	wg.Wait()
 }
 
+func IsUInt32(slice []uint32) bool {
+	return len(slice) > 0
+}
+
+func FromUInt32(slice []uint32, u uint32) uint32 {
+	if IsUInt32(slice) {
+		return slice[0]
+	}
+	return u
+}
+
 func FindUInt32(slice []uint32, fn func(uint32) bool) []uint32 {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -575,6 +696,17 @@ func EachUInt32(slice []uint32, fn func(uint32)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func IsUInt64(slice []uint64) bool {
+	return len(slice) > 0
+}
+
+func FromUInt64(slice []uint64, u uint64) uint64 {
+	if IsUInt64(slice) {
+		return slice[0]
+	}
+	return u
 }
 
 func FindUInt64(slice []uint64, fn func(uint64) bool) []uint64 {
@@ -629,6 +761,17 @@ func EachUInt64(slice []uint64, fn func(uint64)) {
 	wg.Wait()
 }
 
+func IsUIntPtr(slice []uintptr) bool {
+	return len(slice) > 0
+}
+
+func FromUIntPtr(slice []uintptr, u uintptr) uintptr {
+	if IsUIntPtr(slice) {
+		return slice[0]
+	}
+	return u
+}
+
 func FindUIntPtr(slice []uintptr, fn func(uintptr) bool) []uintptr {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -679,6 +822,17 @@ func EachUIntPtr(slice []uintptr, fn func(uintptr)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func IsByte(slice []byte) bool {
+	return len(slice) > 0
+}
+
+func FromByte(slice []byte, b byte) byte {
+	if IsByte(slice) {
+		return slice[0]
+	}
+	return b
 }
 
 func FindByte(slice []byte, fn func(byte) bool) []byte {
@@ -733,6 +887,17 @@ func EachByte(slice []byte, fn func(byte)) {
 	wg.Wait()
 }
 
+func IsRune(slice []rune) bool {
+	return len(slice) > 0
+}
+
+func FromRune(slice []rune, r rune) rune {
+	if IsRune(slice) {
+		return slice[0]
+	}
+	return r
+}
+
 func FindRune(slice []rune, fn func(rune) bool) []rune {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -783,6 +948,17 @@ func EachRune(slice []rune, fn func(rune)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func IsFloat32(slice []float32) bool {
+	return len(slice) > 0
+}
+
+func FromFloat32(slice []float32, f float32) float32 {
+	if IsFloat32(slice) {
+		return slice[0]
+	}
+	return f
 }
 
 func FindFloat32(slice []float32, fn func(float32) bool) []float32 {
@@ -837,6 +1013,17 @@ func EachFloat32(slice []float32, fn func(float32)) {
 	wg.Wait()
 }
 
+func IsFloat64(slice []float64) bool {
+	return len(slice) > 0
+}
+
+func FromFloat64(slice []float64, f float64) float64 {
+	if IsFloat64(slice) {
+		return slice[0]
+	}
+	return f
+}
+
 func FindFloat64(slice []float64, fn func(float64) bool) []float64 {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -887,6 +1074,17 @@ func EachFloat64(slice []float64, fn func(float64)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func IsComplex64(slice []complex64) bool {
+	return len(slice) > 0
+}
+
+func FromComplex64(slice []complex64, c complex64) complex64 {
+	if IsComplex64(slice) {
+		return slice[0]
+	}
+	return c
 }
 
 func FindComplex64(slice []complex64, fn func(complex64) bool) []complex64 {
@@ -941,6 +1139,17 @@ func EachComplex64(slice []complex64, fn func(complex64)) {
 	wg.Wait()
 }
 
+func IsComplex128(slice []complex128) bool {
+	return len(slice) > 0
+}
+
+func FromComplex128(slice []complex128, c complex128) complex128 {
+	if IsComplex128(slice) {
+		return slice[0]
+	}
+	return c
+}
+
 func FindComplex128(slice []complex128, fn func(complex128) bool) []complex128 {
 	var mux sync.Mutex
 	var wg sync.WaitGroup
@@ -991,6 +1200,19 @@ func EachComplex128(slice []complex128, fn func(complex128)) {
 		})()
 	}
 	wg.Wait()
+}
+
+func Is(slice interface{}) bool {
+	a := reflect.ValueOf(slice)
+	return a.Len() > 0
+}
+
+func From(slice interface{}, v interface{}) interface{} {
+	a := reflect.ValueOf(slice)
+	if a.Len() > 0 {
+		return a.Index(0).Interface()
+	}
+	return reflect.ValueOf(v).Interface()
 }
 
 func Find(slice interface{}, fn interface{}) interface{} {
